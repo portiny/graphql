@@ -1,0 +1,2 @@
+extensions:
+	- Portiny\GraphQL\Adapter\Nette\DI\GraphQLExtension
