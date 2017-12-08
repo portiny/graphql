@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Portiny\GraphQL\Contract\Field\QueryFieldInterface;
 use Portiny\GraphQL\Contract\Provider\QueryFieldsProviderInterface;
 use Portiny\GraphQL\Provider\QueryFieldsProvider;
+use Portiny\GraphQL\Tests\Source\Provider\SomeQueryField;
 
 
 class QueryFieldsProviderTest extends TestCase
@@ -78,6 +79,9 @@ class QueryFieldsProviderTest extends TestCase
 		$this->assertArrayHasKey('type', $queryFieldAsArray['args']['someArg']);
 		$this->assertInstanceOf(StringType::class, $queryFieldAsArray['args']['someArg']['type']);
 		$this->assertTrue(is_callable($queryFieldAsArray['resolve']));
+
+		$output = $this->queryFieldsProvider->convertFieldsToArray([SomeQueryField::class]);
+		$this->assertEmpty($output);
 	}
 
 

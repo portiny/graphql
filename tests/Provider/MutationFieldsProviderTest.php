@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Portiny\GraphQL\Contract\Mutation\MutationFieldInterface;
 use Portiny\GraphQL\Contract\Provider\MutationFieldsProviderInterface;
 use Portiny\GraphQL\Provider\MutationFieldsProvider;
+use Portiny\GraphQL\Tests\Source\Provider\SomeMutationField;
 
 
 class MutationFieldsProviderTest extends TestCase
@@ -78,6 +79,9 @@ class MutationFieldsProviderTest extends TestCase
 		$this->assertArrayHasKey('type', $mutationFieldAsArray['args']['someArg']);
 		$this->assertInstanceOf(StringType::class, $mutationFieldAsArray['args']['someArg']['type']);
 		$this->assertTrue(is_callable($mutationFieldAsArray['resolve']));
+
+		$output = $this->mutationFieldProvider->convertFieldsToArray([SomeMutationField::class]);
+		$this->assertEmpty($output);
 	}
 
 
