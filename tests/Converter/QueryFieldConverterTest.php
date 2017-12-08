@@ -4,36 +4,36 @@ namespace Portiny\GraphQL\Tests\Converter;
 
 use GraphQL\Type\Definition\StringType;
 use GraphQL\Type\Definition\Type;
-use Portiny\GraphQL\Contract\Mutation\MutationFieldInterface;
-use Portiny\GraphQL\Converter\MutationFieldConverter;
+use Portiny\GraphQL\Contract\Field\QueryFieldInterface;
+use Portiny\GraphQL\Converter\QueryFieldConverter;
 use Portiny\GraphQL\Tests\AbstractContainerTestCase;
 
 
-final class MutationFieldConverterTest extends AbstractContainerTestCase
+class QueryFieldConverterTest extends AbstractContainerTestCase
 {
 
 	public function testToArray()
 	{
-		$mutationField = $this->getMutationField();
-		$output = MutationFieldConverter::toArray($mutationField);
+		$queryField = $this->getQueryField();
+		$output = QueryFieldConverter::toArray($queryField);
 
 		$this->assertSame('Some name', key($output));
 
-		$mutationFieldAsArray = reset($output);
-		$this->assertInstanceOf(StringType::class, $mutationFieldAsArray['type']);
-		$this->assertSame('Some description', $mutationFieldAsArray['description']);
-		$this->assertArrayHasKey('someArg', $mutationFieldAsArray['args']);
-		$this->assertArrayHasKey('type', $mutationFieldAsArray['args']['someArg']);
-		$this->assertInstanceOf(StringType::class, $mutationFieldAsArray['args']['someArg']['type']);
-		$this->assertTrue(is_callable($mutationFieldAsArray['resolve']));
+		$queryFieldAsArray = reset($output);
+		$this->assertInstanceOf(StringType::class, $queryFieldAsArray['type']);
+		$this->assertSame('Some description', $queryFieldAsArray['description']);
+		$this->assertArrayHasKey('someArg', $queryFieldAsArray['args']);
+		$this->assertArrayHasKey('type', $queryFieldAsArray['args']['someArg']);
+		$this->assertInstanceOf(StringType::class, $queryFieldAsArray['args']['someArg']['type']);
+		$this->assertTrue(is_callable($queryFieldAsArray['resolve']));
 	}
 
 
 	public function testToObject()
 	{
-		$mutationField = $this->getMutationField();
-		$mutationFieldAsArray = MutationFieldConverter::toArray($mutationField);
-		$output = MutationFieldConverter::toObject($mutationFieldAsArray);
+		$queryField = $this->getQueryField();
+		$queryFieldAsArray = QueryFieldConverter::toArray($queryField);
+		$output = QueryFieldConverter::toObject($queryFieldAsArray);
 
 		$this->assertSame('Some name', $output->getName());
 		$this->assertInstanceOf(StringType::class, $output->getType());
@@ -45,9 +45,9 @@ final class MutationFieldConverterTest extends AbstractContainerTestCase
 	}
 
 
-	private function getMutationField(): MutationFieldInterface
+	private function getQueryField(): QueryFieldInterface
 	{
-		return (new class () implements MutationFieldInterface
+		return (new class () implements QueryFieldInterface
 		{
 
 			/**
