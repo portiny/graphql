@@ -10,7 +10,7 @@ use Portiny\GraphQL\Contract\Field\QueryFieldInterface;
 use Portiny\GraphQL\Contract\Mutation\MutationFieldInterface;
 use Portiny\GraphQL\Contract\Provider\MutationFieldsProviderInterface;
 use Portiny\GraphQL\Contract\Provider\QueryFieldsProviderInterface;
-use Portiny\GraphQL\GraphQLProcessor;
+use Portiny\GraphQL\GraphQL\RequestProcessor;
 use Portiny\GraphQL\Provider\MutationFieldsProvider;
 use Portiny\GraphQL\Provider\QueryFieldsProvider;
 
@@ -76,8 +76,8 @@ final class GraphQLExtension extends CompilerExtension
 	{
 		$containerBuilder = $this->getContainerBuilder();
 
-		$containerBuilder->addDefinition($this->prefix('graphQLProcessor'))
-			->setFactory(GraphQLProcessor::class)
+		$containerBuilder->addDefinition($this->prefix('requestProcessor'))
+			->setFactory(RequestProcessor::class)
 			->addSetup('setMutationFieldsProvider', ['@' . MutationFieldsProviderInterface::class])
 			->addSetup('setQueryFieldsProvider', ['@' . QueryFieldsProviderInterface::class]);
 	}

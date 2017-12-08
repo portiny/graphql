@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Portiny\GraphQL;
+namespace Portiny\GraphQL\GraphQL;
 
 use Exception;
 use GraphQL\Error\Debug;
@@ -15,7 +15,7 @@ use Portiny\GraphQL\Contract\Provider\MutationFieldsProviderInterface;
 use Portiny\GraphQL\Contract\Provider\QueryFieldsProviderInterface;
 
 
-final class GraphQLProcessor
+final class RequestProcessor
 {
 
 	/**
@@ -57,6 +57,7 @@ final class GraphQLProcessor
 	 * @param mixed|NULL $context
 	 * @param array|null $allowedQueries
 	 * @param array|null $allowedMutations
+	 * @return array
 	 */
 	public function process(
 		array $rootValue = [],
