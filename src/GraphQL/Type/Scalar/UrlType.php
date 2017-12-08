@@ -42,10 +42,10 @@ final class UrlType extends ScalarType
 	public function parseLiteral($ast)
 	{
 		if ( ! $ast instanceof StringValueNode) {
-			throw new Error('Query error: Can only parse strings got: ' . $ast->kind, [$ast]);
+			throw new Error('Can only parse strings got: ' . $ast->kind, [$ast]);
 		}
 		if ( ! is_string($ast->value) || ! filter_var($ast->value, FILTER_VALIDATE_URL)) {
-			throw new Error('Query error: Not a valid URL', [$ast]);
+			throw new Error('Not a valid URL', [$ast]);
 		}
 
 		return $ast->value;
